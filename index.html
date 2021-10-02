@@ -6,10 +6,43 @@
 		<meta charset="UTF-8">
 
 		<title>Moja pierwsza strona (na kółku)</title>
+
+		<style>
+			body {
+				background-color: orange;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			}
+
+			h1 {
+				font-size: 48pt;
+
+				background-color: yellow;
+				box-shadow: 0 0 10px 10px orange inset;
+
+				margin-left: 20px;;
+			}
+
+			img {
+				margin-top: 30px;
+				box-shadow: 10px 10px rgba(64, 64, 64, 0.75);
+				transition-duration: 0.2s;
+
+				cursor: crosshair;
+			}
+
+			img:hover {
+				opacity: 0.5;
+				transition-duration: 0.2s;
+			}
+
+			#tytuł {
+				font-family: "Pacifico", monospace;
+			}
+		</style>
 	</head>
 
 	<body>
-		<h1>Hello, world!</h1>
+		<h1 id="tytuł">Hello, world!</h1>
 
 		<p>Kółko programowania 2021/2022 😀😀😀</p>
 
@@ -39,11 +72,11 @@
 			</tr>
 		</table>
 
+		<img src="kot.jpg" width="75%"></img>
+
 		<h1><a href="https://youtube.pl" title="Filmy.">YouTube</a></h1>
 
 		<video src="P1030325.MP4" width="75%" controls loop></video>
-
-		<img src="kot.jpg" width="75%"></img>
 
 		<audio src="Amanda.mp3" controls></audio>
 	</body>
