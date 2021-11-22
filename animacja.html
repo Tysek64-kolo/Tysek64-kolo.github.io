@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Animacja</title>
+
+	<style>
+		#logo {
+			position: absolute;
+
+			left: 0px;
+			top: 0px;
+
+			width: 200px;
+		}
+	</style>
+</head>
+<body>
+	<img src="dvd.png" id="logo"></img>
+
+	<script>
+		var obrazek = document.getElementById("logo");
+
+		var pozycja = [0, 0];
+		var v = [2, 2];
+
+		function zmienPozycje () {
+			pozycja[0] += v[0];
+			pozycja[1] += v[1];
+
+			obrazek.style.left = pozycja[0] + "px";
+			obrazek.style.top = pozycja[1] + "px";
+
+			if (pozycja[0] < 0 || pozycja[0] > 400) {
+				v[0] *= -1;
+			}
+			
+			if (pozycja[1] < 0 || pozycja[1] > 300) {
+				v[1] *= -1;
+			}
+		}
+
+		setInterval(zmienPozycje, 10);
+	</script>
+</body>
+</html>

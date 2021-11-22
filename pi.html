@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Obliczanie π</title>
+</head>
+<body>
+	<p id="wynik"></p>
+	<p id="licznik">0</p>
+
+	<input id="liczbaPowtorzen" value=1></input>
+
+	<button onclick="obliczPI()">Oblicz PI</button>
+
+	<script>
+		var wypiszWynik = document.getElementById("wynik");
+	
+		wypiszWynik.innerHTML = "3.1415926535897932384626433";
+
+		var wszystkie = 0;
+		var dobre = 0;
+
+		var przyblizenie = 0;
+
+		function nwd (a, b) {
+			if (a > b) {
+				var t = a;
+				a = b;
+				b = t;
+			}
+
+			var c = 0;
+
+			while (b != 0) {
+				c = a % b;
+				a = b;
+				b = c;
+			}
+
+			return a;
+		}
+
+		function obliczPI () {
+			var powtorzenia = document.getElementById("liczbaPowtorzen");
+
+			for (var i = 0;i < powtorzenia.value;i++) {
+				var a = Math.floor(Math.random() * 100000) + 1;
+				var b = Math.floor(Math.random() * 100000) + 1;
+			
+				if (nwd(a, b) == 1) {
+					dobre++;
+				}
+
+				wszystkie++;
+
+				przyblizenie = Math.sqrt(6 * (wszystkie / dobre));
+
+				wypiszWynik.innerHTML = przyblizenie;
+			}
+
+			var licznikPowtorzen = document.getElementById("licznik");
+			licznikPowtorzen.innerHTML = wszystkie;
+		}
+	</script>
+</body>
+</html>
