@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Pong</title>
+	<style>
+		body {
+			display: flex;
+			justify-content: center;
+			align-content: flex-end;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="tabulaRasa" width=640 height=480></canvas>
+	<script>
+		var canvas = document.getElementById("tabulaRasa");
+		var context = canvas.getContext("2d");
+
+		var p1 = [20, canvas.height / 2 - 25, 0];
+		var p2 = [canvas.width - 30, canvas.height / 2 - 25, 0];
+		var b = [canvas.width / 2, canvas.height / 2, 3 * (Math.floor(Math.random() * 2) - 0.5) * 2, 3 * (Math.floor(Math.random() * 2) - 0.5) * 2];
+		var s = [0, 0];
+
+		function update () {
+			context.fillStyle = "Black";
+			context.fillRect(0, 0, canvas.width, canvas.height);
+
+			context.fillStyle = "White";
+			context.fillRect(p1[0], p1[1], 10, 50);
+			context.fillRect(p2[0], p2[1], 10, 50);
+			context.beginPath();
+			context.arc(b[0], b[1], 5, 0, 2 * Math.PI);
+			context.fill();
+
+			if (p1[1] + p1[2] < 0 || p1[1] + p1[2] > canvas.height - 50) {
+				p1[2] = 0;
+			}
+			
+			if (p2[1] + p2[2] < 0 || p2[1] + p2[2] > canvas.height - 50) {
+				p2[2] = 0;
+			}
+
+			p1[1] += 4 * p1[2];
+			p2[1] += 4 * p2[2];
+
+			if (b[1] + b[3] < 5 || b[1] + b[3] > canvas.height - 5) {
+				b[3] *= -1;
+			}
+
+			if (b[1] >= p1[1] && b[1] <= p1[1] + 50 && b[0] >= 22 && b[0] <= 28) {
+				b[2] *= -1;
+			}
+
+			if (b[1] >= p2[1] && b[1] <= p2[1] + 50 && b[0] >= canvas.width - 38 && b[0] <= canvas.width - 32) {
+				b[2] *= -1;
+			}
+
+			b[0] += b[2];
+			b[1] += b[3];
+
+			if (b[0] < 0) {
+				s[1]++;
+				b[0] = canvas.width / 2;
+			}
+
+			if (b[0] > canvas.width) {
+				s[0]++;
+				b[0] = canvas.width / 2;
+			}
+
+			context.font = "50px Courier New";
+			context.textAlign="center";
+			context.fillText(s[0], 100, 50);
+			context.fillText(s[1], canvas.width - 100, 50);
+		}
+
+		document.addEventListener("keydown", function(dwe) {
+			if (dwe.keyCode == 38) {
+				p2[2] = -1;
+			}
+			if (dwe.keyCode == 40) {
+				p2[2] = 1;
+			}
+			if (dwe.keyCode == 87) {
+				p1[2] = -1;
+			}
+			if (dwe.keyCode == 83) {
+				p1[2] = 1;
+			}
+		});
+
+		
+		document.addEventListener("keyup", function(dwe) {
+			if (dwe.keyCode == 38) {
+				p2[2] = 0;
+			}
+			if (dwe.keyCode == 40) {
+				p2[2] = 0;
+			}
+			if (dwe.keyCode == 87) {
+				p1[2] = 0;
+			}
+			if (dwe.keyCode == 83) {
+				p1[2] = 0;
+			}
+		});
+
+		var inter = setInterval(update, 10);
+	</script>
+</body>
+</html>

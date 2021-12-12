@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="plotno" width=640 height=480></canvas>
+	
+	<script>
+
+		var plotno = document.getElementById("plotno");
+		var ctx = plotno.getContext("2d");
+
+		var pozycjaGracza = [30, 240];
+		var pozycjaPilki = [320, 240];
+
+		var predkoscGracza = 0;
+		var predkoscPilki = [3, 3];
+
+		var wynik = 0;
+
+		//glowna funkcja gry
+		function gra () {
+			//czyszczene ekranu
+			ctx.fillStyle = "Black";
+			ctx.fillRect(0, 0, 640, 480);
+
+
+			if (pozycjaGracza[1] + predkoscGracza < 0) {
+				predkoscGracza = 0;
+			}
+
+			if (pozycjaGracza[1] + predkoscGracza > 430) {
+				predkoscGracza = 0;
+			}
+
+			pozycjaGracza[1] += predkoscGracza;
+
+			pozycjaPilki[0] += predkoscPilki[0];
+			pozycjaPilki[1] += predkoscPilki[1];
+
+			if (pozycjaPilki[1] > 480) {
+				predkoscPilki[1] = -3;
+			}
+			
+			if (pozycjaPilki[1] < 0) {
+				predkoscPilki[1] = 3;
+			}
+			
+			if (pozycjaPilki[0] > 600) {
+				predkoscPilki[0] = -3;
+			}
+
+			if (pozycjaPilki[0] < 0) {
+				pozycjaPilki[0] = 320;
+				predkoscPilki[0] = 3;
+				wynik = 0;
+			}
+
+			// && - operator I
+			if (pozycjaPilki[0] < 40 && pozycjaPilki[0] > pozycjaGracza[0] && pozycjaPilki[1] > pozycjaGracza[1] && pozycjaPilki[1] < pozycjaGracza[1] + 50) {
+				predkoscPilki[0] = 3;
+				wynik++;
+			}
+
+			ctx.fillStyle = "White";
+			//rysowanie sciany
+			ctx.fillRect(600, 0, 10, 480);
+
+			//rysowanie gracza
+			ctx.fillRect(pozycjaGracza[0], pozycjaGracza[1], 10, 50);
+
+			//rysowanie pilki
+			ctx.beginPath();
+			ctx.arc(pozycjaPilki[0], pozycjaPilki[1], 5, 0, 360);
+			ctx.fill();
+
+			//rysowanie wyniku
+			ctx.font = "36px Courier New";
+			ctx.fillText(wynik, 320, 50);
+		}
+
+		//zdarzenie wcisniecia klawisza
+		document.addEventListener("keydown", function (zdarzenie) {
+			if (zdarzenie.keyCode == 40) {
+				predkoscGracza = 4;
+			}
+
+			if (zdarzenie.keyCode == 38) {
+				predkoscGracza = -4;
+			}
+		});
+
+		//zdarzenie puszczenia klawisza
+		document.addEventListener("keyup", function (zdarzenie) {
+			// || - operator LUB
+			if (zdarzenie.keyCode == 38 || zdarzenie.keyCode == 40) {
+				predkoscGracza = 0;
+			}
+		});
+
+		var powtarzanie = setInterval(gra, 10);
+
+	</script>
+</body>
+</html>
